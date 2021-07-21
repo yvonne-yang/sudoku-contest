@@ -22,6 +22,6 @@ This particular line represents the puzzle below:
 ```
 The output file from your solver should have the same format, except that all blank spaces should be filled (no `.`s).
 
-# Rules
+## Rules
 (TBD)
 We will most likely constrain the programming language to be Python.
