@@ -10,6 +10,7 @@ Define your child class as "class _____(SudokuSolver):" and remember to call sup
         self.ROWS = 9
         self.COLS = 9
         self.puzzle = None
+        self.clues = None
         self.solve_time = None
 
     # initialize puzzle from single string tdoku format. Limited input checks, so be careful
@@ -24,6 +25,10 @@ Define your child class as "class _____(SudokuSolver):" and remember to call sup
             for colidx in range(self.COLS):
                 if puzzle_input[rowidx*self.COLS + colidx] is not '.':
                     self.puzzle[rowidx, colidx] = int(puzzle_input[rowidx*self.COLS + colidx])
+
+        # keep track of which clues are given
+        self.clues = self.puzzle != -1
+
         # return success
         return True
 
@@ -41,6 +46,10 @@ Define your child class as "class _____(SudokuSolver):" and remember to call sup
     # get value of item at given row and column in internal puzzle
     def get_index(self, row: int, col: int) -> int:
         return self.puzzle[row, col]
+
+    # tells whether or not an index was given as a clue
+    def index_was_given(self, row: int, col: int) -> bool:
+        return self.clues[row, col]
 
     # core forwardchecking algorithm to determine whether a spot can hold a value
     def index_can_have(self, row: int, col: int, value: int) -> bool:
