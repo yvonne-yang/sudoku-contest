@@ -43,8 +43,10 @@ class SolutionConsistencyChecker:
 
         # check against clues and that all are solved
         consistent_sol = consistent_sol and self.check_against_clues()
-        if self.debugmode and not consistent_sol:
-            print('CLUE ERROR: a clue was detected to be overwritten')
+        if not consistent_sol:
+            if self.debugmode:
+                print('CLUE ERROR: a clue was detected to be overwritten')
+            return False
 
         # perform value checking for rows, columns, and boxes
         consistent_sol = consistent_sol and self.check_cell_values()
