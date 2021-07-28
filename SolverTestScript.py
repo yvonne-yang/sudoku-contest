@@ -6,6 +6,7 @@ from Jeison import Jeison
 from j_wilkes_b import j_wilkes_b
 from Khaled import Khaled
 from Aditya import Aditya
+from SolutionConsistencyChecker import SolutionConsistencyChecker
 
 if __name__ == "__main__":
     ##
@@ -29,24 +30,30 @@ if __name__ == "__main__":
             Khaled(),
             Aditya()
             ]
+    solution_checker = SolutionConsistencyChecker()
 
     # loop through all puzzles with all solvers and print statistics
     for solver in solvers:
         # store variable for number of incorrectly solved puzzles
         incorrect_count = 0
-        for problem, solution in zip(problems, solutions):
+
+        # loop through problems and (attempt) to solve
+        for problem in problems:
             # initialize puzzle in solver
             solver.init_puzzle(problem)
             # solve puzzle using solver
             solver.solve_puzzle()
             # check solution correctness
-            if solution != solver.get_puzzle_string():
+            if not solution_checker.check_puzzle(solver.get_puzzle_string(), problem):
                 incorrect_count += 1
+
         # store runtime stats
         solver_runtime = time.time() - start_time
         avg_solvetime = solver_runtime / float(total_puzzles)
+
         # store correctness stats
         percent_incorrect = float(incorrect_count) / float(total_puzzles)
+
         # print statistics of solver
         print(f'\nStatistics of {solver} solver:')
         print(f'\ttime to solve {total_puzzles} puzzles: {solver_runtime} seconds \n\t\t({avg_solvetime} sec/puzzle)')

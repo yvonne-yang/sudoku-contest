@@ -1,11 +1,8 @@
 import numpy as np
 from abc import ABC
 
+# abstract baseclass for sudoku solver class. Unimplemented solution routine
 class SudokuSolver(ABC):
-'''
-Abstract baseclass for sudoku solver class, inherited methods for solution routine
-Define your child class as "class _____(SudokuSolver):" and remember to call super constructor!
-'''
     def __init__(self):
         self.ROWS = 9
         self.COLS = 9
@@ -23,7 +20,7 @@ Define your child class as "class _____(SudokuSolver):" and remember to call sup
         # unpack text representation of puzzle into internal array
         for rowidx in range(self.ROWS):
             for colidx in range(self.COLS):
-                if puzzle_input[rowidx*self.COLS + colidx] is not '.':
+                if puzzle_input[rowidx*self.COLS + colidx] != '.':
                     self.puzzle[rowidx, colidx] = int(puzzle_input[rowidx*self.COLS + colidx])
 
         # keep track of which clues are given
@@ -39,7 +36,7 @@ Define your child class as "class _____(SudokuSolver):" and remember to call sup
         # loop through array in row-major fashion, use '.' as null spot
         for rowidx in range(self.ROWS):
             for colidx in range(self.COLS):
-                fmted_puzzle += str(puzzle[rowidx, colidx]) if puzzle[rowidx, colidx] is not -1 else '.'
+                fmted_puzzle += str(puzzle[rowidx, colidx]) if puzzle[rowidx, colidx] != -1 else '.'
         # return formatted string representation of puzzle
         return fmted_puzzle
 
@@ -131,7 +128,7 @@ Define your child class as "class _____(SudokuSolver):" and remember to call sup
             # print horizontal lines
             if rowidx == 3 or rowidx == 6:
                 print('-'*(self.COLS+2))
-            for colidx in range(self.COLS)
+            for colidx in range(self.COLS):
                 # print vertical lines
                 if colidx == 3 or colidx == 6:
                     print('|')
