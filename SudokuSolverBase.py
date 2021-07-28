@@ -84,7 +84,7 @@ class SudokuSolver(ABC):
                     return True
             # box 3
             else:
-                if np.any(self.puzzle[:3, 7:] == value):
+                if np.any(self.puzzle[:3, 6:] == value):
                     return True
         elif row < 6:
             # box 4
@@ -97,20 +97,20 @@ class SudokuSolver(ABC):
                     return True
             # box 6
             else:
-                if np.any(self.puzzle[3:6, 7:] == value):
+                if np.any(self.puzzle[3:6, 6:] == value):
                     return True
         else:
             # box 7
             if col < 3:
-                if np.any(self.puzzle[7:, :3] == value):
+                if np.any(self.puzzle[6:, :3] == value):
                     return True
             # box 8
             elif col < 6:
-                if np.any(self.puzzle[7:, 3:6] == value):
+                if np.any(self.puzzle[6:, 3:6] == value):
                     return True
             # box 9
             else:
-                if np.any(self.puzzle[7:, 7:] == value):
+                if np.any(self.puzzle[6:, 6:] == value):
                     return True
         # return false if no conditionals were triggered (for readability)
         return False

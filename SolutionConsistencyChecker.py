@@ -99,7 +99,7 @@ class SolutionConsistencyChecker:
                 return (self.puzzle[:3, 3:6] == value).sum()
             # box 3
             else:
-                return (self.puzzle[:3, 7:] == value).sum()
+                return (self.puzzle[:3, 6:] == value).sum()
         elif box_row == 1:
             # box 4
             if box_col == 0:
@@ -109,17 +109,17 @@ class SolutionConsistencyChecker:
                 return (self.puzzle[3:6, 3:6] == value).sum()
             # box 6
             else:
-                return (self.puzzle[3:6, 7:] == value).sum()
+                return (self.puzzle[3:6, 6:] == value).sum()
         else:
             # box 7
             if box_col == 0:
-                return (self.puzzle[7:, :3] == value).sum()
+                return (self.puzzle[6:, :3] == value).sum()
             # box 8
             elif box_col == 1:
-                return (self.puzzle[7:, 3:6] == value).sum()
+                return (self.puzzle[6:, 3:6] == value).sum()
             # box 9
             else:
-                return (self.puzzle[7:, 7:] == value).sum()
+                return (self.puzzle[6:, 6:] == value).sum()
 
     # small debug script to point out errors in cells
     def debug_cell_errors(self) -> None:
