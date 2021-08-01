@@ -1,5 +1,5 @@
 import numpy as np
-from abc import ABC
+from abc import ABC, abstractmethod
 
 # abstract baseclass for sudoku solver class. Unimplemented solution routine
 class SudokuSolver(ABC):
@@ -13,7 +13,7 @@ class SudokuSolver(ABC):
     # initialize puzzle from single string tdoku format. Limited input checks, so be careful
     def init_puzzle(self, puzzle_input: str) -> bool:
         # some input checks
-        if len(puzzle) != 81:
+        if len(puzzle_input) != 81:
             return False
         # make numpy array to store puzzle, initialized to -1
         self.puzzle = np.zeros((9,9)) - 1
@@ -30,13 +30,13 @@ class SudokuSolver(ABC):
         return True
 
     # returns the tdoku string formatted puzzle at its current state, can be called on internal state puzzle or another in same form
-    def get_puzzle_string(self, puzzle=self.puzzle) -> str:
+    def get_puzzle_string(self) -> str:
         # make string to hold tdoku formatted puzzle
         fmted_puzzle = ''
         # loop through array in row-major fashion, use '.' as null spot
         for rowidx in range(self.ROWS):
             for colidx in range(self.COLS):
-                fmted_puzzle += str(puzzle[rowidx, colidx]) if puzzle[rowidx, colidx] != -1 else '.'
+                fmted_puzzle += str(int(self.puzzle[rowidx, colidx])) if self.puzzle[rowidx, colidx] != -1 else '.'
         # return formatted string representation of puzzle
         return fmted_puzzle
 
@@ -51,7 +51,7 @@ class SudokuSolver(ABC):
     # core forwardchecking algorithm to determine whether a spot can hold a value
     def index_can_have(self, row: int, col: int, value: int) -> bool:
         # check whether the row, column, or box of the index has a certain value
-        can_have = not (row_has(row, value) or column_has(col, value) or box_has(row, col, value))
+        can_have = not (self.row_has(row, value) or self.column_has(col, value) or self.box_has(row, col, value))
         # return whether the queried index can have the value
         return can_have
 
